@@ -170,7 +170,7 @@
                 </div>
 
                 <div class="mb-3 text-start">
-                    <a href="<?= base_url('frontend-forgot-password.html') ?>" class="forgot-password">
+                    <a href="<?= base_url('forgot-password.html') ?>" class="forgot-password">
                         Lupa Sandi?
                     </a>
                 </div>

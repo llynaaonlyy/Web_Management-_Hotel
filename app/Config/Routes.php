@@ -55,4 +55,4 @@ $routes->get('staff/tamu/(:num)', 'Staff::detailTamu/$1');
 
 $routes->get('staff/dashboard', 'Staff::dashboard');
 
-$routes->get('forgot-password', 'Auth::forgotPassword');
+$routes->get('forgot-password.html', 'Auth::forgotPassword');

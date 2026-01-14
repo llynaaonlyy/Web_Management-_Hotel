@@ -165,7 +165,7 @@ class Auth extends BaseController
 
     public function forgotPassword()
     {
-        return view('frontend-forgot-password');
+        return view('forgot-password');
     }
 
 }
