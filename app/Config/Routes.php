@@ -15,10 +15,10 @@ $routes->get('/', 'Index::index');
 $routes->get('auth/login', 'Auth::login');
 $routes->post('auth/login', 'Auth::processLogin');
 $routes->get('logout', 'Auth::logout');
-
 $routes->get('/auth/register', 'Auth::register');
 $routes->post('/auth/register/process', 'Auth::processRegister');
 
+// Admin & Staff Dashboard
 $routes->get('/admin/dashboard', 'Admin::dashboard');
 $routes->get('/staff/dashboard', 'Staff::dashboard'); 
 $routes->get('staff/dashboard', 'Staff::dashboard', ['filter' => 'pegawai']);
@@ -36,7 +36,7 @@ $routes->post('/profil/delete', 'User::deleteAccount');
 // Profil staff
 $routes->get('/staff/profil_staff', 'Staff::profilStaff');
 
-// Pemesanan (pilih satu controller)
+// Pemesanan
 $routes->get('/pemesanan/(:num)', 'PemesananController::form/$1');
 $routes->post('/pemesanan/proses', 'PemesananController::proses');
 $routes->get('/pemesanan/sukses/(:num)', 'PemesananController::sukses/$1');
@@ -50,9 +50,21 @@ $routes->get('staff/kelola-kamar', 'Staff::kelolaKamar');
 $routes->post('staff/update-stok-kamar', 'Staff::updateStokKamar');
 $routes->post('staff/update-status-kamar', 'Staff::updateStatusKamar');
 
+// Route untuk data tamu
 $routes->get('staff/data-tamu', 'Staff::dataTamu');
 $routes->get('staff/tamu/(:num)', 'Staff::detailTamu/$1');
 
+// Dashboard staff
 $routes->get('staff/dashboard', 'Staff::dashboard');
 
+//forgot password
 $routes->get('forgot-password.html', 'Auth::forgotPassword');
+
+// User Profile Routes (Require Login)
+$routes->get('/profil', 'User::profil');
+$routes->post('/profil/update', 'User::updateProfil');
+$routes->post('/profil/delete', 'User::deleteAccount');
+$routes->get('/histori', 'User::histori'); 
+
+// Staff Update Status
+$routes->post('staff/update-status', 'Staff::updateStatus');

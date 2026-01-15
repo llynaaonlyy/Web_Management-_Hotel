@@ -243,10 +243,7 @@
                             <label class="form-label">Status Baru</label>
                             <select class="form-select" name="status" required>
                                 <option value="">Pilih Status</option>
-                                <option value="pending" <?= $pemesanan['status'] == 'pending' ? 'selected' : '' ?>>Pending</option>
                                 <option value="confirmed" <?= $pemesanan['status'] == 'confirmed' ? 'selected' : '' ?>>Confirmed</option>
-                                <option value="checked-in" <?= $pemesanan['status'] == 'checked-in' ? 'selected' : '' ?>>Checked-in</option>
-                                <option value="checked-out" <?= $pemesanan['status'] == 'checked-out' ? 'selected' : '' ?>>Checked-out</option>
                                 <option value="cancelled" <?= $pemesanan['status'] == 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
                             </select>
                         </div>
@@ -262,37 +259,6 @@
                         </button>
                     </form>
                 </div>
-
-                <!-- Catatan Internal -->
-                <div class="detail-card">
-                    <div class="section-title">Catatan Internal</div>
-                    <form action="/staff/update-catatan-internal" method="post">
-                        <?= csrf_field() ?>
-                        <input type="hidden" name="pemesanan_id" value="<?= $pemesanan['id'] ?>">
-                        
-                        <div class="mb-3">
-                            <textarea class="form-control" name="catatan_internal" rows="4" 
-                                      placeholder="Tambahkan catatan internal untuk pegawai lain..."><?= esc($pemesanan['catatan_internal'] ?? '') ?></textarea>
-                            <small class="text-muted">Catatan ini tidak akan terlihat oleh tamu</small>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-secondary w-100">
-                            <i class="fas fa-sticky-note me-2"></i>Simpan Catatan
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Info Email -->
-                <?php if($pemesanan['status'] == 'confirmed'): ?>
-                    <div class="alert alert-info">
-                        <i class="fas fa-envelope me-2"></i>
-                        <?php if($pemesanan['email_sent']): ?>
-                            <strong>Email konfirmasi telah dikirim</strong>
-                        <?php else: ?>
-                            <strong>Email konfirmasi belum dikirim</strong>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
             </div>
         </div>
     </div>

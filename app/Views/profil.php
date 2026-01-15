@@ -54,9 +54,27 @@
         .btn-update:hover {
             background: #764ba2;
         }
+        .menu-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        .menu-icon {
+            font-size: 36px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
-<body>
+<body style="background: #f8f9fa;">
     <div class="top-bar">
         <div class="container">
             <div class="row align-items-center">
@@ -75,6 +93,29 @@
     </div>
 
     <div class="profile-container">
+        <!-- Menu Cards -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="menu-card text-center" onclick="window.location.href='/histori'">
+                    <div class="menu-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h5>Histori Pemesanan</h5>
+                    <p class="text-muted mb-0">Lihat riwayat pemesanan Anda</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="menu-card text-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <div class="menu-icon" style="color: white;">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <h5>Edit Profil</h5>
+                    <p class="mb-0" style="opacity: 0.9;">Update informasi Anda</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Form -->
         <div class="profile-card">
             <div class="avatar">
                 <i class="fas fa-user"></i>
@@ -83,12 +124,26 @@
             <h3 class="text-center mb-4">Profil Pengguna</h3>
 
             <?php if(session()->getFlashdata('success')): ?>
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show">
+                    <i class="fas fa-check-circle me-2"></i>
                     <?= session()->getFlashdata('success') ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            <?php endif; ?>
+
+            <?php if(session()->getFlashdata('errors')): ?>
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        <?php foreach(session()->getFlashdata('errors') as $error): ?>
+                            <li><?= esc($error) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             <?php endif; ?>
 
             <form action="/profil/update" method="post">
+                <?= csrf_field() ?>
+                
                 <div class="mb-3">
                     <label class="form-label">Nama Lengkap</label>
                     <input type="text" class="form-control" name="nama" 
@@ -104,10 +159,10 @@
                 <div class="mb-4">
                     <label class="form-label">No. Telepon</label>
                     <input type="tel" class="form-control" name="no_telp" 
-                           value="<?= esc($user['no_telp']) ?>">
+                           value="<?= esc($user['no_telp']) ?>" required>
                 </div>
 
-                <div class="text-center">
+                <div class="text-center mb-3">
                     <button type="submit" class="btn btn-update">
                         <i class="fas fa-save me-2"></i>Update Profil
                     </button>

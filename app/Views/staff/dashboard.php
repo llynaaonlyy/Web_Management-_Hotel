@@ -214,24 +214,7 @@
                             <div class="stat-label">Pemesanan Hari Ini</div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="stat-card">
-                            <div class="stat-icon" style="background: #28a745;">
-                                <i class="fas fa-door-open"></i>
-                            </div>
-                            <div class="stat-number"><?= $stats['checkin_hari_ini'] ?></div>
-                            <div class="stat-label">Check-in Hari Ini</div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="stat-card">
-                            <div class="stat-icon" style="background: #17a2b8;">
-                                <i class="fas fa-bed"></i>
-                            </div>
-                            <div class="stat-number"><?= $stats['kamar_terpakai'] ?></div>
-                            <div class="stat-label">Kamar Terpakai</div>
-                        </div>
-                    </div>
+                   
                     <div class="col-lg-3 col-md-6">
                         <div class="stat-card">
                             <div class="stat-icon" style="background: #ffc107;">

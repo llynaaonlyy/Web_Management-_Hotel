@@ -39,8 +39,8 @@ class Staff extends BaseController
             'pemesanan' => $this->pemesananModel->getAllPemesananWithDetails(),
             'stats' => [
                 'pemesanan_hari_ini' => $this->pemesananModel->where('DATE(created_at)', $today)->countAllResults(),
-                'checkin_hari_ini' => $this->pemesananModel->where('tanggal_checkin', $today)->where('status', 'checked-in')->countAllResults(),
-                'kamar_terpakai' => $this->pemesananModel->where('status', 'checked-in')->countAllResults(),
+                'checkin_hari_ini' => $this->pemesananModel->where('tanggal_checkin', $today)->where('status', 'check-in')->countAllResults(),
+                'kamar_terpakai' => $this->pemesananModel->where('status', 'check-in')->countAllResults(),
                 'pending' => $this->pemesananModel->where('status', 'pending')->countAllResults()
             ]
         ];
@@ -66,44 +66,36 @@ class Staff extends BaseController
     }
 
     public function detailPemesanan($id)
-    {
-        $allPemesanan = $this->pemesananModel->getAllPemesananWithDetails();
+        {
+            $pemesanan = $this->pemesananModel->getDetailPemesananFull($id);
 
-        $pemesanan = null;
-        foreach ($allPemesanan as $p) {
-            if ($p['id'] == $id) {
-                $pemesanan = $p;
-                break;
+            if (!$pemesanan) {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
             }
+
+            $tamu = $this->userModel->find($pemesanan['user_id']);
+
+            $db = \Config\Database::connect();
+            $statusLog = $db->table('pemesanan_status_log')
+                ->select('pemesanan_status_log.*, users.nama as changed_by_name')
+                ->join('users', 'users.id = pemesanan_status_log.changed_by', 'left')
+                ->where('pemesanan_id', $id)
+                ->orderBy('created_at', 'DESC')
+                ->get()
+                ->getResultArray();
+
+            $data = [
+                'user' => [
+                    'nama' => $this->session->get('nama'),
+                    'role' => $this->session->get('role')
+                ],
+                'pemesanan' => $pemesanan,
+                'tamu' => $tamu,
+                'status_log' => $statusLog
+            ];
+
+            return view('staff/detail_pemesanan', $data);
         }
-
-        if (!$pemesanan) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
-
-        $tamu = $this->userModel->find($pemesanan['user_id']);
-
-        $db = \Config\Database::connect();
-        $statusLog = $db->table('pemesanan_status_log')
-                        ->select('pemesanan_status_log.*, users.nama as changed_by_name')
-                        ->join('users', 'users.id = pemesanan_status_log.changed_by', 'left')
-                        ->where('pemesanan_id', $id)
-                        ->orderBy('created_at', 'DESC')
-                        ->get()
-                        ->getResultArray();
-
-        $data = [
-            'user' => [
-                'nama' => $this->session->get('nama'),
-                'role' => $this->session->get('role')
-            ],
-            'pemesanan' => $pemesanan,
-            'tamu' => $tamu,
-            'status_log' => $statusLog
-        ];
-
-        return view('staff/detail_pemesanan', $data);
-    }
     
     public function updateStatus()
     {

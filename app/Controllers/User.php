@@ -3,16 +3,22 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\PemesananModel;
+
 
 class User extends BaseController
 {
     protected $userModel;
     protected $session;
+    protected $pemesananModel;
+
     
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->session = \Config\Services::session();
+        $this->pemesananModel = new PemesananModel();
+
     }
     
     public function profil()
@@ -77,5 +83,23 @@ class User extends BaseController
         $this->session->destroy();
         
         return redirect()->to('/')->with('success', 'Akun berhasil dihapus');
+    }
+
+    public function histori()
+    {
+        $userId = $this->session->get('user_id');
+        
+        // Ambil semua pemesanan user ini dari database
+        $histori = $this->pemesananModel->getHistoriByUser($userId);
+        
+        $data = [
+            'user' => [
+                'nama' => $this->session->get('nama'),
+                'email' => $this->session->get('email')
+            ],
+            'histori' => $histori
+        ];
+        
+        return view('histori', $data);
     }
 }
