@@ -101,7 +101,7 @@
 
         <div class="alert alert-info">
             <i class="fas fa-info-circle me-2"></i>
-            Detail pemesanan telah dikirim ke email Anda. Silakan cek untuk informasi lebih lanjut.
+            Detail pemesanan akan segera dikirim ke email Anda. Mohon bersabar dan jika sudah dikirim silakan cek untuk informasi lebih lanjut.
         </div>
 
         <a href="/home" class="btn btn-primary btn-lg mt-3">

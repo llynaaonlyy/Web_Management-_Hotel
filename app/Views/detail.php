@@ -146,37 +146,40 @@
     <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <?php 
-            $totalFoto = !empty($foto) ? count($foto) : 5;
-            for($i = 0; $i < $totalFoto; $i++): 
+            $totalFoto = !empty($foto) ? count($foto) : 1;
+            for ($i = 0; $i < $totalFoto; $i++): 
             ?>
-                <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="<?= $i ?>" 
-                        <?= $i == 0 ? 'class="active"' : '' ?>></button>
+                <button type="button"
+                    data-bs-target="#photoCarousel"
+                    data-bs-slide-to="<?= $i ?>"
+                    <?= $i == 0 ? 'class="active"' : '' ?>>
+                </button>
             <?php endfor; ?>
         </div>
         <div class="carousel-inner">
-            <?php if(!empty($foto)): ?>
-                <?php foreach($foto as $index => $f): ?>
+            <?php if (!empty($foto)): ?>
+                <?php foreach ($foto as $index => $f): ?>
                     <div class="carousel-item <?= $index == 0 ? 'active' : '' ?>">
-                        <img src="https://picsum.photos/1200/500?random=<?= $f['id'] ?>" 
-                             class="d-block w-100 carousel-img" alt="Foto <?= $index + 1 ?>">
+                        <img src="<?= base_url('uploads/akomodasi/' . $f['foto']) ?>"
+                            class="d-block w-100 carousel-img"
+                            alt="Foto <?= $index + 1 ?>">
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <?php for($i = 1; $i <= 5; $i++): ?>
-                    <div class="carousel-item <?= $i == 1 ? 'active' : '' ?>">
-                        <img src="https://picsum.photos/1200/500?random=<?= $akomodasi['id'] . $i ?>" 
-                             class="d-block w-100 carousel-img" alt="Foto <?= $i ?>">
-                    </div>
-                <?php endfor; ?>
+                <div class="carousel-item active">
+                    <img src="<?= base_url('uploads/akomodasi/' . $akomodasi['foto_utama']) ?>"
+                        class="d-block w-100 carousel-img"
+                        alt="Foto utama">
+                </div>
             <?php endif; ?>
         </div>
+    </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon"></span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon"></span>
         </button>
-    </div>
 
     <!-- Detail Informasi -->
     <div class="container my-5">

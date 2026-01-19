@@ -237,39 +237,45 @@
                     <p class="text-muted">Coba kata kunci lain atau ubah filter pencarian</p>
                 </div>
             <?php else: ?>
-                <?php foreach($akomodasi as $item): ?>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <a href="/detail/<?= $item['id'] ?>" style="text-decoration: none; color: inherit;">
-                            <div class="card card-akomodasi">
-                                <div style="position: relative;">
-                                    <img src="https://picsum.photos/400/300?random=<?= $item['id'] ?>" 
-                                         class="card-img-top" alt="<?= esc($item['nama']) ?>">
-                                    <span class="badge badge-<?= $item['tipe'] ?> badge-tipe">
-                                        <?= ucfirst($item['tipe']) ?>
-                                    </span>
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title mb-2"><?= esc($item['nama']) ?></h5>
-                                    <div class="location mb-2">
-                                        <i class="fas fa-map-marker-alt"></i> <?= esc($item['kota']) ?>
+                <div class="row g-4">
+                    <?php foreach($akomodasi as $item): ?>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <a href="/detail/<?= $item['id'] ?>" style="text-decoration: none; color: inherit;">
+                                <div class="card card-akomodasi">
+                                    <div style="position: relative;">
+                                        <!-- <img src="https://picsum.photos/400/300?random=<?= $item['id'] ?>" 
+                                            class="card-img-top" alt="<?= esc($item['nama']) ?>"> -->
+                                        <img src="<?= base_url('uploads/akomodasi/' . $item['foto_utama']) ?>"
+                                            class="card-img-top"
+                                            alt="<?= esc($item['nama']) ?>">
+
+                                        <span class="badge badge-<?= $item['tipe'] ?> badge-tipe">
+                                            <?= ucfirst($item['tipe']) ?>
+                                        </span>
                                     </div>
-                                    <div class="rating mb-3">
-                                        <i class="fas fa-star"></i> <?= number_format($item['rating'], 1) ?>
-                                    </div>
-                                    <p class="card-text text-muted" style="font-size: 14px; height: 40px; overflow: hidden;">
-                                        <?= esc($item['deskripsi']) ?>
-                                    </p>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <div class="price">
-                                            Rp <?= number_format(500000 + ($item['id'] * 100000), 0, ',', '.') ?>
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-2"><?= esc($item['nama']) ?></h5>
+                                        <div class="location mb-2">
+                                            <i class="fas fa-map-marker-alt"></i> <?= esc($item['kota']) ?>
                                         </div>
-                                        <small class="text-muted">/ malam</small>
+                                        <div class="rating mb-3">
+                                            <i class="fas fa-star"></i> <?= number_format($item['rating'], 1) ?>
+                                        </div>
+                                        <p class="card-text text-muted" style="font-size: 14px; height: 40px; overflow: hidden;">
+                                            <?= esc($item['deskripsi']) ?>
+                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center mt-3">
+                                            <div class="price">
+                                                Rp <?= number_format(500000 + ($item['id'] * 100000), 0, ',', '.') ?>
+                                            </div>
+                                            <small class="text-muted">/ malam</small>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                <?php endforeach; ?>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>  
             <?php endif; ?>
         </div>
     </div>
