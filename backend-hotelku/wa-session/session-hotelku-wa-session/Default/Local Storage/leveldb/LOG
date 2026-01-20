@@ -1,6 +1,0 @@
-2026/01/14-14:36:03.471 3e38 Reusing MANIFEST D:\laragon\www\hotelku\backend-hotelku\wa-session\session-hotelku-wa-session\Default\Local Storage\leveldb/MANIFEST-000001
-2026/01/14-14:36:04.282 3e38 Recovering log #4
-2026/01/14-14:36:04.297 3e38 Reusing old log D:\laragon\www\hotelku\backend-hotelku\wa-session\session-hotelku-wa-session\Default\Local Storage\leveldb/000004.log 
-2026/01/14-15:06:18.227 3e38 Level-0 table #8: started
-2026/01/14-15:06:18.276 3e38 Level-0 table #8: 13397 bytes OK
-2026/01/14-15:06:18.294 3e38 Delete type=0 #4
